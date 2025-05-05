@@ -201,9 +201,6 @@ def dependencies_checker(
         if not Console.YNinput('Deseja prosseguir sem a verificação de dependências'):
             sys.exit(0)
     
-    if os.geteuid() != 0 and install_dependencies:
-        Console.error("Por favor, execute essa aplicação como 'super usuário' (administrador) para proceguir com a instalação automatica de dependencias")
-    
     dependencies_data = check_dependencies_file(dependencies_file_path)
 
     if len(dependencies_data.get("packages")) == 0:
