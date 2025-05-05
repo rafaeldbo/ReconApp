@@ -14,7 +14,7 @@ setup(
     install_requires=requirements,
     entry_points={
         'console_scripts': [
-            'recon=app.main:main',
+            'recon=recon.main:main',
         ],
     },
 )
