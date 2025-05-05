@@ -13,7 +13,7 @@
     - **SSLyze**
     - **Dirb**
     - **Nmap** (script vuln)
-    - **Wappalyzer CLI** (código fonte disponível em [gokulapap/wappalyzer-cli]()https://github.com/gokulapap/wappalyzer-cli)
+    - **Wappalyzer CLI** (código fonte disponível em [gokulapap/wappalyzer-cli](https://github.com/gokulapap/wappalyzer-cli))
 
 ## **Como Instalar**
 Faça a instalação diretamente em seu terminal por meio do `pip`

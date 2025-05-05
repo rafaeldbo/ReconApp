@@ -23,7 +23,7 @@ def main() -> None:
         PATH = os.path.dirname(os.path.abspath(__file__))
         
         parser = argparse.ArgumentParser(
-                        description="Agrupa e e facilita o uso de ferramentas básicas de reconhecimento de um alvo",
+                        description="Agrupa e facilita o uso de ferramentas básicas de reconhecimento de um alvo",
                         epilog="Use com moderação")
         # group = parser.add_mutually_exclusive_group()
         parser.add_argument("-i", "--install", action="store_true", help="Permite que a aplicação tente instalar as dependências faltantes automaticamente")

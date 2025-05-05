@@ -69,7 +69,7 @@
             ]
         },
         {
-            "name": "WHOIS lookup",
+            "name": "WHOIS Lookup",
             "installer": "package manager",
             "package": "whois",
             "commands": [
