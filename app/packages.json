@@ -1,0 +1,274 @@
+{
+    "installers": {
+        "pip": {
+            "install": "pip install git+{package}",
+            "check": "function:pip_is_installed('{package}')"
+        },
+        "package manager": {
+            "install": "sudo apt install {package} -y",
+            "check": "apt list {package}"
+        }
+    },
+    "packages": [
+        {
+            "name": "Port Scanner",
+            "installer": "pip",
+            "package": "portscan", 
+            "url": "https://github.com/rafaeldbo/port-scan",
+            "commands": [
+                {
+                    "name": "Escanear Todas as Portas (Isso pode demorar)",
+                    "command": "portscan --open --os --all {ip}",
+                    "fields": {
+                        "ip": {
+                            "text": "Insira um Host/IP/Domínio a ser escaneado",
+                            "pattern": "^[a-zA-Z0-9._-]+\\.[a-zA-Z0-9_-]*\\.?$"
+                        }
+                    }
+                },
+                {
+                    "name": "Escanear Range de Portas",
+                    "command": "portscan --open --os --range {range} {ip}",
+                    "fields": {
+                        "range": {
+                            "text": "Insira um range de portas a ser escaneado",
+                            "pattern": "^\\d+-\\d+$",
+                            "instruction": "{inicio}-{fim}"
+                        },
+                        "ip": {
+                            "text": "Insira um Host/IP/Domínio a ser escaneado",
+                            "pattern": "^[a-zA-Z0-9._-]+\\.[a-zA-Z0-9_-]*\\.?$"
+                        }
+                    }
+                },
+                {
+                    "name": "Escanear Well Know Ports",
+                    "command": "portscan --open --os --wellknowports {ip}",
+                    "fields": {
+                        "ip": {
+                            "text": "Insira um Host/IP/Domínio a ser escaneado",
+                            "pattern": "^[a-zA-Z0-9._-]+\\.[a-zA-Z0-9_-]*\\.?$"
+                        }
+                    }
+                },
+                {
+                    "name": "Escanear Portas Específicas",
+                    "command": "portscan --open --os --ports {ports} {ip}",
+                    "fields": {
+                        "ports": {
+                            "text": "Insira as portas que você deseja escanear",
+                            "pattern": "^\\d+(,\\d+)*$",
+                            "instruction": "{p1},{p2}, ..."
+                        },
+                        "ip": {
+                            "text": "Insira um Host/IP/Domínio a ser escaneado",
+                            "pattern": "^[a-zA-Z0-9._-]+\\.[a-zA-Z0-9_-]*\\.?$"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "WHOIS lookup",
+            "installer": "package manager",
+            "package": "whois",
+            "commands": [
+                {
+                    "name": "Puxar dados de registro WEB de um Host/IP/Domínio",
+                    "command": "whois {ip}",
+                    "fields": {
+                        "ip": {
+                            "text": "Insira um Host/IP/Domínio",
+                            "pattern": "^[a-zA-Z0-9._-]+\\.[a-zA-Z0-9_-]*\\.?$"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "DNS Utilities",
+            "installer": "package manager",
+            "package": "dnsutils",
+            "commands": [
+                {
+                    "name": "Consultar Informações de um Host presentes no servidor DNS da rede",
+                    "command": "nslookup {ip}",
+                    "fields": {
+                        "ip": {
+                            "text": "Insira um Host para consulta",
+                            "pattern": "^[a-zA-Z0-9._-]+\\.[a-zA-Z0-9_-]*\\.?$"
+                        }
+                    }
+                },
+                {
+                    "name": "Consultar Informações de um Host presentes em um servidor DNS específico",
+                    "command": "nslookup {ip} {server}",
+                    "fields": {
+                        "ip": {
+                            "text": "Insira um Host para consulta",
+                            "pattern": "^[a-zA-Z0-9._-]+\\.[a-zA-Z0-9_-]*\\.?$"
+                        }, 
+                        "server": {
+                            "text": "Insira o servidor que será consultado",
+                            "pattern": "^[a-zA-Z0-9._-]+\\.[a-zA-Z0-9_-]*\\.?$"
+                        }
+                    }
+                },
+                {
+                    "name": "Consultar Serividores DNS que respondem por um domínio",
+                    "command": "nslookup -type=NS {ip}",
+                    "fields": {
+                        "ip": {
+                            "text": "Insira um Domínio para consulta",
+                            "pattern": "^[a-zA-Z0-9._-]+\\.[a-zA-Z0-9_-]*\\.?$"
+                        }
+                    }
+                },
+                {
+                    "name": "Consultar os Servidores de email de um domínio",
+                    "command": "nslookup -type=MX {ip}",
+                    "fields": {
+                        "ip": {
+                            "text": "Insira um Domínio para consulta",
+                            "pattern": "^[a-zA-Z0-9._-]+\\.[a-zA-Z0-9_-]*\\.?$"
+                        }
+                    }
+                },
+                {
+                    "name": "Enumerar dados DNS de um host",
+                    "command": "dnsenum --noreverse --enum {ip}",
+                    "fields": {
+                        "ip": {
+                            "text": "Insira um Host para consulta",
+                            "pattern": "^[a-zA-Z0-9._-]+\\.[a-zA-Z0-9_-]*\\.?$"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "DNS Enumeration",
+            "installer": "package manager",
+            "package": "dnsenum"
+        },
+        {
+            "name": "WAFW00F",
+            "installer": "package manager",
+            "package": "wafw00f",
+            "commands": [
+                {
+                    "name": "Varificar se há firewalls (WAF's) protegendo uma Host/IP/domínio",
+                    "command": "wafw00f --findall {ip}",
+                    "fields": {
+                        "ip": {
+                            "text": "Insira um Host/IP/Domínio para consulta",
+                            "pattern": "^[a-zA-Z0-9._-]+\\.[a-zA-Z0-9_-]*\\.?$"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Nikto",
+            "installer": "package manager",
+            "package": "nikto",
+            "commands": [
+                {
+                    "name": "Realizar análise da infraestrutura de um servidor (Isso pode demorar)",
+                    "command": "nikto -h {ip} -Tuning 6 -C all -Format html -o {output}",
+                    "fields": {
+                        "ip": {
+                            "text": "Insira um Host/IP para analisar",
+                            "pattern": "^[a-zA-Z0-9._-]+\\.[a-zA-Z0-9_-]*\\.?$"
+                        },
+                        "output": {
+                            "text": "Nome do arquivo HTML em que o relatório deve ser salvo",
+                            "pattern": "^.+\\.html$",
+                            "default": "nikto_report.html"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "SSLyze",
+            "installer": "package manager",
+            "package": "sslyze",
+            "commands": [
+                {
+                    "name": "Realizar análise das conficurações de Segurança SSL/TLS de um Host/IP",
+                    "command": "sslyze --certinfo --heartbleed --reneg --mozilla_config=modern {ip} --json_out {output}",
+                    "fields": {
+                        "ip": {
+                            "text": "Insira um Host/IP para analisar",
+                            "pattern": "^[a-zA-Z0-9._-]+\\.[a-zA-Z0-9_-]*\\.?$"
+                        },
+                        "output": {
+                            "text": "Nome do arquivo JSON em que o relatório deve ser salvo",
+                            "pattern": "^.+\\.json$",
+                            "default": "sslyze_report.json"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Dirb",
+            "installer": "package manager",
+            "package": "dirb",
+            "commands": [
+                {
+                    "name": "Realizar varredura em uma URL em busca de diretórios e subdiretórios escondidos",
+                    "command": "dirb {url} -o {output}",
+                    "fields": {
+                        "url": {
+                            "text": "Insira uma URL para analisar",
+                            "pattern": "https?://[a-zA-Z0-9._-]+\\.[a-zA-Z0-9_-]*\\.?$",
+                            "instruction": "https://exemple.com"
+                        },
+                        "output": {
+                            "text": "Nome do arquivo TXT em que o relatório deve ser salvo",
+                            "pattern": "^.+\\.txt$",
+                            "default": "dirb_report.txt"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Nmap",
+            "installer": "package manager",
+            "package": "nmap",
+            "commands": [
+                {
+                    "name": "Verificar se há vulnerabilidades conhecidas em um Host/IP (Isso pode demorar)",
+                    "command": "nmap --script vuln {ip}",
+                    "fields": {
+                        "ip": {
+                            "text": "Insira um Host/IP para analisar",
+                            "pattern": "^[a-zA-Z0-9._-]+\\.[a-zA-Z0-9_-]*\\.?$"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Wappalyzer CLI",
+            "installer": "pip",
+            "package": "wappalyzer-cli",
+            "url": "https://github.com/gokulapap/wappalyzer-cli",
+            "commands": [
+                {
+                    "name": "Verificar tecnologias WEB usadas por um Host/IP",
+                    "command": "wappy -u {ip}",
+                    "fields": {
+                        "ip": {
+                            "text": "Insira um Host/IP para analisar",
+                            "pattern": "^[a-zA-Z0-9._-]+\\.[a-zA-Z0-9_-]*\\.?$"
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

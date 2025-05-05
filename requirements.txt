@@ -1,0 +1,4 @@
+setuptools==80.3.1
+wheel==0.45.1
+portscan @ git+https://github.com/rafaeldbo/port-scan@8d35b39477bd1895c1315f7dd8067f7b9304d718
+wappalyzer-cli @ git+https://github.com/gokulapap/wappalyzer-cli@7cf0e73204ce9faca72fcf1bdb8edd35ff8a90f5
